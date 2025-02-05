@@ -1,6 +1,7 @@
 package org.iitwf.selenium.mmpequinox;
 
 import java.time.Duration;
+import java.util.HashMap;
 
 import org.iitwf.selenium.lib.FutureDateEx;
 import org.openqa.selenium.By;
@@ -48,26 +49,42 @@ public class ScheduleAppointment {
 	public static void main(String[] args) {
 		login();
 		navigatetoAModule("Schedule Appointment");
-		bookAppointment(365,"MMMM/d/YYYY");
-//		HashMap<String,String> expectedHMap= bookAppointment();
-//		HashMap<String,String> actualHMap = fetchAppointmentDetails();
-//		if(expectedHMap.equals(actualHMap))
-//		{
-//			System.out.println("Booking is successful");
-//		}
-//		else
-//		{
-//			System.out.println("Booking is unsuccessful");
-//		}
+		HashMap<String,String> expectedHMap= bookAppointment(60,"MMMM/d/YYYY","Cardiologist","Charlie");
+        HashMap<String,String> actualHMap = fetchAppointmentDetails();
+		if(expectedHMap.equals(actualHMap))
+		{
+			System.out.println("Booking is successful");
+		}
+		else
+		{
+			System.out.println("Booking is unsuccessful");
+		}
+	}
+	public static HashMap<String, String>  fetchAppointmentDetails()
+	{
+		
+		HashMap<String,String> actualHMap = new HashMap<String,String>();
+		actualHMap.put("doctor",driver.findElement(By.xpath("//table[@class='table']/tbody/tr[1]/td[4]")).getText().trim() );
+		actualHMap.put("date",driver.findElement(By.xpath("//table[@class='table']/tbody/tr[1]/td[1]")).getText().trim()  );
+		actualHMap.put("time",driver.findElement(By.xpath("//table[@class='table']/tbody/tr[1]/td[2]")).getText().trim() );
+		actualHMap.put("sym", driver.findElement(By.xpath("//table[@class='table']/tbody/tr[1]/td[3]")).getText().trim());
+		return actualHMap;
 	}
 	public static void navigatetoAModule(String moduleName)
 	{
 		driver.findElement(By.xpath("//span[normalize-space()='"+moduleName+"']")).click();
 	}
-	public static  void bookAppointment(int n , String format  )
+	public static  HashMap<String, String> bookAppointment(int n , String format,String specialization,String doctorName  )
 	{
+		
+		HashMap<String,String> expectedHMap = new HashMap<String,String>();
+		expectedHMap.put("doctor", doctorName);
+		
 		driver.findElement(By.xpath("//input[@value='Create new appointment']")).click();
-		driver.findElement(By.id("opener")).click();
+		//driver.findElement(By.id("opener")).click();
+		driver.findElement(By.	
+			xpath("//p[text()='Description: "+specialization+"']/parent::div/preceding-sibling::h4[text()='Dr."+doctorName+"']/ancestor::ul/following-sibling::button")).
+		    click();
 		driver.switchTo().frame("myframe");
 		driver.findElement(By.id("datepicker")).click();
 		String expectedDate= FutureDateEx.generateFutureDate(n,format);
@@ -75,6 +92,9 @@ public class ScheduleAppointment {
 		String expectedMonth = expectedDateArr[0];
 		String expectedDay = expectedDateArr[1];
 		String expectedYear = expectedDateArr[2];
+		
+		 
+		expectedHMap.put("date", FutureDateEx.generateFutureDate(n,"MM/dd/YYYY"));
 		
 		System.out.println("######################" + expectedMonth +"--"+ expectedDay +"---" + expectedYear );
 		
@@ -100,27 +120,19 @@ public class ScheduleAppointment {
 		
 		Select timeSelect = new Select(driver.findElement(By.id("time")));
 		timeSelect.selectByVisibleText("10Am");
+		expectedHMap.put("time",timeSelect.getFirstSelectedOption().getText());
+		
 		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("status"), "OK"));
 		driver.findElement(By.id("ChangeHeatName")).click();
 		driver.switchTo().defaultContent();
 		
 		driver.findElement(By.id("sym")).sendKeys("Fever and cold");
+		expectedHMap.put("sym",driver.findElement(By.id("sym")).getDomProperty("value"));
+		
 		driver.findElement(By.xpath("//input[@value='Submit']")).click();
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		return expectedHMap;
 		
 		
 	}
