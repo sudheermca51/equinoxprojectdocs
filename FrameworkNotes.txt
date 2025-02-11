@@ -1,0 +1,23 @@
+readProperties()- Reading the property file - Any project -FrameworkLibrary.java
+invoke driver instance - FrameworkLibrary.java 
+launchBrowser - FrameworkLibrary.java 
+All Testng test classes extends FrameworkLibrary
+login()-MMPUtil
+
+Hi
+Hello
+-------------------------------------
+environment= dev 
+	read mmp_dev.properties 
+	
+environment = qa
+	read mmp_qa.properties
+	
+browser = chrome 
+	instantiate chrome driver 
+browser = edge 
+	instantiate edge driver 
+================================
+environment=dev 
+browser=edge 
+=================================
