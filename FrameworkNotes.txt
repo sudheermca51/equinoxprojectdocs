@@ -4,6 +4,31 @@ launchBrowser - FrameworkLibrary.java
 All Testng test classes extends FrameworkLibrary
 login()-MMPUtil
 
+findWE("id","locatorref","value");
+findWE("xpath","locatorref","value");
+findWE("id","locatorref");
+
+public void findWE(param1,param2)
+{
+	
+	if(param1.equals("id"))
+	{
+		driver.findElement(By.id("locatorref")).click();
+	}
+	else if (param1.equals("xpath"))
+	{
+	
+	}
+}
+
+public void findWE(param1,param2,param3)
+{
+
+	driver.findElement(By.id("locatorref")).sendKeys("value");
+
+
+}
+ 
 Hi
 Hello
 -------------------------------------
@@ -21,3 +46,20 @@ browser = edge
 environment=dev 
 browser=edge 
 =================================
+
+QA1= Current RElease 
+QA2 = Previous Release ->fix the code and test it on QA2 ->released to prod 
+merge the code into QA1 
+QA1 
+
+throws developer
+
+throws / try/catch
+
+
+
+Approach 1: Modular+DataDriven+Page Object model 
+
+Approach 2: Modular+Data Driven+Keyword Driven + Page object model 
+
+Approach 3 : Modular + Data Driven + PAge Object model + bdd
