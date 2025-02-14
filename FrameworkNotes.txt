@@ -62,4 +62,164 @@ Approach 1: Modular+DataDriven+Page Object model
 
 Approach 2: Modular+Data Driven+Keyword Driven + Page object model 
 
-Approach 3 : Modular + Data Driven + PAge Object model + bdd
+Approach 3 : Modular + Data Driven + Page Object model + bdd
+
+https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/
+
+src/main/java
+	org
+		iit
+			utils 
+				FrameworkLibrary
+				ExcelUtils
+				WaitUtility
+				CustomJavaLibrary
+				RandomLibrary
+				ScreenshotUtility	
+	org 
+		iit 
+			mmp 
+			
+			   utils
+					MMPUtility.java 
+				patientmodule
+							 LoginPage.java  
+							 
+src/test/java
+	org 
+		iit 
+			mmp
+				patientmodule 
+							LoginTests.java 
+
+config 
+	global
+		qa
+		dev 
+pom.xml  - project object model 
+	dependencies 
+	plugins 
+inputData.xlsx 
+
+							
+							
+Page object Model : Design Pattern
+ enhancing test maintenance 
+ reducing code duplication
+
+Advantages: 
+	1. clean separation between test code and page specific code 
+	
+		Page Specific Code 
+		---------------------
+			login() -> LoginPage.java 
+			bookAppointment ->ScheduleAppointment.java 
+			
+		Test Specific Code [TestNG fwk]
+		--------------------
+			loginTest() -> LoginTests.java 
+				invoke page specific methods
+					LoginPage lPage = new LoginPage();;
+					lPage.login();
+			bookAppointmentTest->ScheduleAppointmentsTests.java 
+			
+	2.There is a single repository for the services or operations the page offers rather than having these services scattered throughout the tests.
+		TestNG tests there should not be any driver. statements should not be available
+	
+Summary
+The public methods represent the services that the page offers -
+Try not to expose the internals of the page ->
+					Encapsulation[private By usernameBy = By.name("user_name");]
+Generally don’t make assertions
+Methods return other PageObjects
+
+		LoginPage lPage = new LoginPage();
+		HomePage hPage   = lPage.login();
+		hPage.readLoginSuccessfullMessage();
+		public HomePage login()
+		{
+		
+			return new HomePage(driver);
+		}
+		public String readLoginSuccessfullMessage()
+		{
+		
+		}
+	---------------------------------------------------
+		
+		LoginPage lPage = new LoginPage();
+	    lPage.login();
+		HomePage hPage = new HomePage();
+		hPage.readLoginSuccessfullMessage();
+		public void login()
+		{
+		
+			 
+		}
+		
+		public String readLoginSuccessfullMessage()
+		{
+		
+		}
+	==============================================================
+
+
+Need not represent an entire page - Testcase focus areas should be converted into methods 
+
+Different results for the same action are modelled as different methods
+
+------------------------------------------------------------------------------------------
+
+
+public String  loginASValidUser()
+{
+
+}
+public String loginASInvalidUser()
+{
+	
+}
+
+
+public void loginValiddata()
+{
+	 
+	enterUsername("ria1");
+	
+
+}
+
+public void loginInvalidData()
+{
+	enterUsername("ria12345");
+
+}
+
+public void enterUsername()
+{
+	driver.findElement(By.id("username")).sendKeys();
+
+}
+
+RegisterPage.java 
+
+enterUSername("invalidata:");
+enterUsername("number");
+
+
+@BeforeMethod
+public void setup()
+{
+		initApplication();
+		lp = new LoginPage();
+		rp = new RegistrationPage();
+
+}
+
+@Test 
+
+	loginPage.login();
+	
+
+@Test 
+	
