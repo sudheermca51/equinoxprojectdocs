@@ -145,7 +145,7 @@ Methods return other PageObjects
 		{
 		
 		}
-	---------------------------------------------------
+		---------------------------------------------------
 		
 		LoginPage lPage = new LoginPage();
 	    lPage.login();
@@ -223,3 +223,42 @@ public void setup()
 
 @Test 
 	
+	
+private By newAppointmentButton = By.xpath("//input[@value='Create new appointment']")
+		String str = 	new String();
+private int i 			= 10;
+
+
+WebElement editButton = driver.findElement(By.id("Ebtn"));
+
+
+Page Factory:
+@FindBy(id = "Ebtn")
+private WebElement editButton;
+
+cons()
+{
+	PageFactory.initElements(driver, page);
+}
+
+editButton.click();
+
+
+Page Object Model 
+private By editButton = By.id("Ebtn");
+driver.findElement(editButton).click();
+
+https://total-qa.com/static-nested-inner-class-in-javainterview-question-selenium-webdriver/
+https://www.browserstack.com/guide/page-object-model-in-selenium
+
+Screenshot 
+ExtentReport
+Listener 
+Keyword 
+Github 
+Jenkins - JIRA  
+MYSQL
+E2e 
+ResTAPI
+Cucumber
+IQ
