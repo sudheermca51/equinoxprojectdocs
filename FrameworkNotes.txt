@@ -262,3 +262,75 @@ E2e
 ResTAPI
 Cucumber
 IQ
+
+driver.executeScript('window.scrollTo(0, document.body.scrollHeight / 2)');
+driver.executeScript('arguments[0].scrollIntoView(true);', exploreButton);
+await driver.executeScript('arguments[0].click();', exploreButton);
+
+
+@Test pass 
+
+OnTestSuccess (TestResult tr)
+		Syso("The TEstcase name :"+ testcaseID+"Passed");
+		//captureScreenshot
+OnTestFailure
+		captureScreenshot 
+
+
+Listener - 
+
+		OnTestSuccess (TestResult tr)
+		Syso("The TEstcase name :"+ testcaseID+"Passed");
+		//captureScreenshot
+	  OnTestFailure
+		captureScreenshot 
+		
+		
+Interface - abstract- not implemented void m1();
+		    static methods 
+			concrete methods - default void m1(){}
+
+	
+
+       <dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>5.1.2</version>
+		</dependency>
+		
+		
+  extentTest = extentReports.createTest("############Validate Schedule Appointment Tests########");	
+  extentTest.info("Navigating to Schedule Appointment");
+      
+  screenshotUtil = new ScreenshotUtil(driver);	
+  screenshotPath = screenshotUtil.captureScreenshot("ScheduleAppointment_Page2");
+  extentTest.addScreenCaptureFromPath(screenshotPath,"Schedule_Appointment_Completed");
+
+
+TestCase :
+
+@Test 
+
+1. step1-login()
+	extentReport.info("");
+	catpureScreenshot();
+
+2. step2- bookAppointment()
+	extentReport.info("");
+	catpureScreenshot();
+	
+3. step3-fetchValues
+	extentReport.info("");
+	catpureScreenshot();
+
+4. step4-Compare 
+	extentReport.info("");
+	catpureScreenshot();
+	
+	C:\Users\sudhe\eclipse-workspace\IITWF2025\mmpequinox/screenshots/Test1_2025-02-21_08-32-23.png
+
+
+Summary :
+ Listners used to log the messages : timetaken to execute tests 
+ Extent Report for the logging and associating the screenshots in the report 
+ 
