@@ -1,0 +1,313 @@
+Jenkins:
+
+CI/CD tool useful for continuous integration and continuous delivery
+
+
+integration :
+
+			developer : develop branch play ground 
+				coding check
+					vulnerabities
+							Checkmarx
+							BlackDuck
+							Sonar Qube -> best practise
+							Eslint 
+				execute unit tests 
+				build
+				deploy on a Dev environment
+				//Sanity : Failed 
+			quality team : main branch 
+				merge the develop branch  into main branch ->DEV 
+				build and deploy on QA envornment
+				trigger tests 
+				Sanity
+				Regression 
+				validate the results 
+				
+				All good sign-off
+
+Delivery :
+		main branch => release branch 
+		deployed to PRE_PROD	
+		Pre-PROD-Customer Acceptance Test 
+
+		PROD 
+
+R1: DEV(develop) -> QA(main)(sanity,regression) -> PRE_PROD(release) ->PROD(release) -> 1.0 50 tESTS 
+R2: DEV -> QA-> PRE_PROD  ->      => 2.0 Reg scope : 50 tests ) 
+		
+ENVIRONMENTS
+
+	DEV -> QA -> PRE_PROD/STAGE -> PROD 
+------------------------------------------------------------------
+SDLC:
+Requirements->Design->Coding->Testing->Delivery->Maintenance
+
+process models:
+Water fall
+Spiral
+V&V
+Agile
+
+Automate: Bug 1 day 
+1. Download the Code from the Git REpo
+2. Run unit tests
+3. Build the code->jar/war/ear
+4. Deployed on the Server- Cloud - GCP,AWS,AZURE
+5. Perform Sanity via Automation Scripts
+6. Deliver the fix to customer-> Promote -> Stage->Perform sanity -> Promote->Prod
+
+Environments:
+DEV ->develop and test ->promote to QA
+QA-> QA team test ->promote to STAGE
+STAGE->QA team test ->promote to PROD
+PROD
+
+artifacts -> build -> maven 
+jar -> java archive
+war -> web archive 
+ear -> enterprise archive 
+
+https://www.jenkins.io/download/
+1. Download the jenkins.war
+	start the jenkins by executing the command: >>>>> java -jar jenkins.war
+	Access the browser : localhost:8080 => admin/admin 
+	URL from point #3: https://total-qa.com/integrating-github-jenkins-continuous-integration-continuous-delivery/
+	
+	
+2. Create a Free Style Job
+3. Add the necessary configuration/script
+4. Schedule the execution of the jobs
+	>>@daily/@hourly/@monthly/
+	minute (0–59)
+# │ ┌───────────── hour (0–23)
+# │ │ ┌───────────── day of the month (1–31)
+# │ │ │ ┌───────────── month (1–12)
+# │ │ │ │ ┌───────────── day of the week (0–6) (Sunday to Saturday;
+# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * * <command to execute>
+5. Trigger accordingly as per the schedule
+Post Build Action : Add Job Name
+
+ 
+Maven Project:
+	From the Manage plugins -> Advanced section upload the hpi file 
+	Download the plugin ->https://updates.jenkins-ci.org/download/plugins/maven-plugin/
+	GIT URL , BRANCH,mmp/pom.xml clean test
+	
+	Download the Apache Maven Binary zip file
+	Unzip the file
+	Set the Path Variable under the environmental variables
+	 Checking the maven version:
+			mvn -version => not working echo %PATH%
+			java -version 
+	
+	open command line -> mvn 
+		mvn clean test	
+	
+	
+	Pre-Requisites Tools:
+	Jenkins-> Tool Configuration -> 
+				Maven -> provide the maven_home path
+					https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip
+				JDK -> provide the java_home path
+	 		
+
+
+Configuration [Deploying a bug fix to production] : 
+1. Download the Code from the Git REpo
+2. Run unit tests
+3. Build the code->jar/war/ear
+4. Deployed on the Server- Cloud - GCP,AWS
+5. Perform Sanity via Automation Scripts
+6. Deliver the fix to customer-> Promote -> Stage->Perform sanity -> Promote->Prod
+
+script -> Jenkinsfile
+
+
+
+Environments:  
+DEV ->develop and test ->promote to QA
+QA-> QA team test ->prmote to STAGE
+STAGE->QA team test ->promote to PROD
+PROD
+
+3 different branches:
+develop-> DEV
+main-> QA
+pre-prod->Pre-PROD -> promote ->PROD
+
+if(develop)
+{
+		buildDEV()
+		deploytoDEV()
+
+}
+else if(main)
+{
+	buildQA()
+	deploytoQA()
+
+}
+else
+{
+	buildSTAGE()
+	deploytoPre-PROD
+}
+
+https://www.jenkins.io/2.0/
+
+Scripted Pipeline
+Declarative Pipeline
+-------------------------------------------------
+
+pipeline {
+    agent any
+
+    stages 
+    {
+        stage('Hello') 
+		{
+            steps 
+			{
+                echo 'Hello World'
+            }
+        }
+         stage('HealthCheck') 
+		{
+            steps 
+			{
+                bat '''dir
+				 ping 96.84.175.78 -n 5'''
+            }
+        }
+        stage('Execute Selenium Tests') 
+		{
+            steps 
+			{
+                git 'https://github.com/sudheer51/CloudMMP.git'
+                dir('mmp')
+				{
+					bat 'mvn clean test'
+            	}
+			}
+			catchError(message: 'Job is failed') {
+					// some block
+				}
+        }
+		stage('build healthcheck job')
+		{
+			steps{
+				build 'selenium_23_fs'
+			
+			}
+		
+		
+		
+		}
+    }
+}
+
+Snippet Generator:
+
+
+Manage Jenkins :
+
+	Global Security :
+			
+-----------
+Failure in Jenkins:
+
+Execute the tests in Eclipse 
+Fix the issues
+push the code-
+again trigger the jenkins job
+Pipeline :
+
+A->B->C->D 
+
+integration of the jobs is successful.
+Sanity Job-> Regression Suite
+Dev Deployment Job is successful ->Run unit tests 
+
+
+jenkinsfile
+groovy : Scripted Pipeline 
+
+job A Script()
+{
+
+
+
+}
+job B Script()
+{
+
+
+
+}
+	
+	
+	
+pipeline {
+    agent any
+
+    stages {
+        stage('JobA') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+		stage('JobB') {
+            steps {
+                echo 'Good Morning'
+            }
+        }
+		stage('JobC') {
+            steps {
+                echo 'Good Morning'
+            }
+        }
+    }
+}
+
+Combine HealthCheck and MavenJob into Script 
+
+HealthCheck :
+=================
+
+dir
+ping www.google.com -n 5
+ping 96.84.175.78 -n 2
+
+Maven Job:
+=================
+
+https://github.com/sudheer51/InfinityMMP.git  >> git 'https://github.com/sudheer51/InfinityMMP.git'
+master 
+
+InfinityMMP/pom.xml
+clean test
+
+git 'https://github.com/sudheer51/InfinityMMP.git'
+dir('infinitymmp/pom.xml') 
+{
+    bat 'mvn clean test'
+}
+
+
+\ stage('Healthcheck') {
+            steps {
+                bat '''dir
+                       ping www.google.com -n 5
+                       ping 96.84.175.78 -n 2'''
+            }
+        }
+		
+		
+		 dir('infinitymmp') 
+                 {
+                        bat 'mvn clean test'
+                 }
