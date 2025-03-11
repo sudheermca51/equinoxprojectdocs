@@ -1,0 +1,150 @@
+MYSQL is mainly a database from Oracle.
+Its a open source.
+RElational Database: relation ship between the tables
+	primary key : we cannot SAVE NULL VALUE
+	foreign key  : emp database ->emp id is primary key , dept id is foreign key 
+				   dept database->dept id is primary key  
+	unique key: we can save NULL VALUE 
+	
+https://www.w3schools.com/mysql/trymysql.asp?filename=trysql_select_all
+Data Model:https://www.gooddata.com/blog/what-a-data-model/
+
+	10 tables / 20 tables: data should not be redundant
+	6 Normalization Forms
+https://www.syncfusion.com/succinctly-free-ebooks/database-design-succinctly/data-models
+
+
+http://total-qa.com/advanced-selenium/mysql-data-base-installation-testing-step-by-step-guide/
+
+Reporting Tools: Business Objects, Cognos
+
+Text files:Raw Data
+	Extract
+	Transformoration Rules
+	Load: Database	
+	ETL Tools:Database Testing
+		Queries
+			Aggregate Functions- count,max
+			CRUD
+			Select,Delete,Insert,Update https://www.w3schools.com/sql/
+			groupby
+			having
+			joins combine two tables and provide information
+			order 
+			  groupby having where
+
+MONGO: non relationship database
+NOSQL
+BIQ QUERY
+
+
+SQL Workbench
+SQL Developer
+DB2 Developer
+MYSQL WORKBENCH -> connect to the server
+				      Query the database 
+
+IPAddress/hostname:
+username:
+password:
+dbName:
+
+Fetch the data from a Database->Table via Java Logic
+
+E2e Testing scenario's:
+	UI: Create a order : Selenium
+	API :Test : REst API : Fetch Data
+	DB: ORder will be generated: Select the data
+			
+
+Load the Driver Class into the memory
+Create a Connection->con
+Create a Statement->stmt
+Execute / update the query->stmt.executeQuery/updateQuery
+Result Set-> Retrieve the cols and rows then fetch the data store in Array
+
+Data Driven Fwk:
+====================
+XLS/XLSX/DB->Array->DP->@Test
+		row of data -> TC is pass /fail
+
+
+
+https://demoqa.com/elements
+
+
+
+
+Selenium -> connect to the DB -> fetch the data and store in an Array -> pass to the DP 
+File 
+	Workbook
+		Sheet
+			rows
+			cols
+				Cell
+					Array
+						----method() -> returns a two D Array 
+						
+Database 						
+rows 
+cols 
+Array 
+	--> method () return an array
+	
+Loading the Driver object ->class.forName 
+Create Connection to the DB 
+Create a Statement 
+Execute the Query 
+rows and cols -> 2 D Array 
+fetch the data and store in 2 D Array 
+======================================================================================================
+public static String[][] getDBValues
+	(String uname,String pword,String dbname,String tableName,String hostip) throws ClassNotFoundException, SQLException 
+	{
+		Class.forName("com.mysql.cj.jdbc.Driver");
+	//	Driver driver = new Driver();
+		/*
+		 * url a database url of the form jdbc:subprotocol:subnameuser 
+		 * the database user on whose behalf the connection is being madepassword 
+		 * the user's password
+		 */
+		String url="jdbc:mysql://"+hostip+":3306/"+dbname;
+		String username=uname;
+		String password=pword;
+		
+		Connection con = DriverManager.getConnection(url, username, password);
+		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+											 ResultSet.CONCUR_READ_ONLY);
+		//int  value = stmt.executeUpdate("INSERT INTO `mmp`.`patient_data` VALUES (11,'James','22/11/2021');");
+		//System.out.println("The rows are updated "+ value);
+		
+		ResultSet rs =  stmt.executeQuery("Select * from "+dbname+"."+tableName);
+		rs.last();
+		int rows = rs.getRow();
+		System.out.println("Number of rows " + rows);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int cols = rsmd.getColumnCount();
+		System.out.println("Number of cols: "+ cols);
+		
+		String data[][]= new String[rows][cols];
+		int i=0;
+		rs.first();
+		while(rs.next())
+		{
+			for(int j=0;j<cols;j++)
+			{
+				data[i][j]=rs.getString(j+1);
+				System.out.println(data[i][j]);
+				System.out.println("i :::"  + i +"@@@@"+"j:::::" + j);
+			}
+			i++;
+		}	
+		return data;
+	}
+		col	0  	1	2	3
+
+ row 0
+	 1
+	 2
+	 3
+	 4
