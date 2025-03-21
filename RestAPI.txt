@@ -1,0 +1,219 @@
+REST - Representational State Transfer 
+useful to perform CRUD operations
+>>>>>>>>>MMP -> getPatientDetails(PatientID)
+Developer develops the rest methods and share with QA team.
+QA team has to pass combination of values to check the predefined method is return the response as expecte.
+ 
+https://petstore.swagger.io/?_gl=1*4a91ab*_gcl_au*MjYxMTE2MDA5LjE3MDU0NTUxNTE.&_ga=2.55347368.2022657624.1705455149-828890238.1705455148#/pet/findPetsByStatus
+Rest API MAnual TEsting Tools -> Postman,SoapUI
+Rest API Automation -> 			 Rest Assured Fwk 
+Rest Assured API 		https://rest-assured.io/
+Rest Assured Fwk https://github.com/sudheer51/restassured/tree/master/restassured
+PostMAn Download - https://www.google.com/search?q=postman+download&rlz=1C1RXQR_enIN961IN961&oq=postman&gs_lcrp=EgZjaHJvbWUqDAgAECMYJxiABBiKBTIMCAAQIxgnGIAEGIoFMg4IARBFGCcYOxiABBiKBTISCAIQABhDGIMBGLEDGIAEGIoFMgwIAxAAGEMYgAQYigUyEggEEAAYQxiDARixAxiABBiKBTINCAUQABiDARixAxiABDIHCAYQABiABDIGCAcQBRhA0gEIMTU0NWowajSoAgCwAgA&sourceid=chrome&ie=UTF-8
+
+CRUD 		rest method 
+
+Read -	GET
+Create - POST 
+Update -PUT 
+Delete -DELETE 
+
+JSON - JavaScript Object Notation	similar to XML
+	   Light weight is useful to exchanges the messages over the network in a faster way.
+	   
+Testcase #1
+Request -> findByStatus
+Req Params -> sold  
+Req Method -> GET 
+------------>
+Response Code : 200 
+Response Body : JSON 
+	Process the response by passing Json Path $.[*].status => to fetch total sold setps
+============================================================================================
+Testcase #2
+Request URL / End Point url ->
+Request -> findByStatus
+Req Params -> available 
+Req Method -> GET 
+------------>
+Response Code : 200 
+Response Body : JSON 
+	Process the response by passing Json Path $.[*].status => to fetch total sold setps
+============================================================================================
+Testcase #3
+Request -> findByStatus
+Req Params -> pending 
+Req Method -> GET 
+------------>
+Response Code : 200 
+Response Body : JSON 
+	Process the response by passing Json Path $.[*].status => to fetch total sold setps
+============================================================================================
+Testcase #4
+Request -> findByStatus
+Req Params -> invalid 
+Req Method -> GET 
+------------>
+Response Code : 200 
+Response Body : JSON 
+	Process the response by passing Json Path $.[*].status => to fetch total sold setps
+============================================================================================
+Testcase #5
+Request -> pet -> Add a new pet to the store 
+Req Body->JSON 
+Request URL -> https://petstore.swagger.io/v2/pet/100
+Req Method -> POST 
+{
+  "id": 100,
+  "category": {
+    "id": 100,
+    "name": "string"
+  },
+  "name": "jimmy",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 100,
+      "name": "string"
+    }
+  ],
+  "status": "available"
+}
+------------>
+Response Code : 200 
+Response Body : JSON 
+Trigger the fetch petstored by ID .
+	 
+============================================================================================
+Testcase #6
+Request -> pet -> update a pet store 
+Request URL -> https://petstore.swagger.io/v2/pet/100
+Req Method -> PUT 
+Req Body->JSON 
+{
+  "id": 100,
+  "category": {
+    "id": 100,
+    "name": "string"
+  },
+  "name": "jimmy",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 100,
+      "name": "string"
+    }
+  ],
+  "status": "sold"
+}
+------------>
+Response Code : 200 
+Response Body : JSON 
+Trigger and  fetch petstore by ID .
+	 
+=======================================================================
+Testcase #7
+Request -> pet -> delete a pet store 
+Request URL -> https://petstore.swagger.io/v2/pet/100
+Req Method -> DELETE 
+Req Params : 100
+------------>
+Response Code : 200 
+Response Body : JSON 
+Trigger and  fetch petstore by ID .
+{
+  "code": 1,
+  "type": "error",
+  "message": "Pet not found"
+}
+	 
+=======================================================================
+Today DB: MYSQL / NOSQL/BigQuery/Hadoop
+
+
+get()
+
+UI ->getPatientDetails()-> DB 
+
+UI -> No Change 
+	rest API methods will be changed 
+	DB
+
+UI->Change in UI 
+	rest API methods will not be changed 
+	DB 
+	
+Application :
+100 customers 
+	Functional Testing on UI 
+	Integration testing on UI 
+	System Testing on UI 
+	Rest API Testing 
+	Performace Testing 
+	Security Testing -Architecture
+	Accessibility
+	Language Testing 
+	Customer Acceptance Testing 
+	
+	
+
+UI -> register the Patient 
+RestAPI -> getPatientDetails(ID)
+
+HTTP Codes :
+
+400 Series
+400 Bad Request
+401: unauthorized
+402 Payment Required
+403 : Forbidden
+404: Page not found 
+
+500 Internal Server Error
+501 Not Implemented
+503 Service Unavailable
+504 Gateway Timeout
+
+
+Variables:
+
+1. Collection Variables (pm.collectionVariables)
+Scope: Limited to a specific collection (all requests within that collection).
+Persistence: Saved with the collection and shared with others when exported.
+Use Case: When you need a variable specific to a collection, such as an API base URL or an authentication token.
+pm.collectionVariables.set("base_url", "https://api.example.com");
+let baseUrl = pm.collectionVariables.get("base_url");
+console.log("Base URL:", baseUrl);
+
+
+2. Environment Variables (pm.environment)
+Scope: Limited to a specific environment (e.g., Dev, QA, Prod).
+Persistence: Saved within the Postman environment. Only available when the environment is selected.
+Use Case: Credentials
+
+let responseData = pm.response.json(); // Parse JSON response
+pm.environment.set("petID", responseData[1].id); // Store petID in environment variable
+let petID=pm.environment.get("petID");
+console.log("value of petID::::" + petID);
+
+if (pm.environment.name === "QA") {
+   let responseData = pm.response.json(); // Parse JSON response
+	pm.environment.set("petID", responseData[1].id); // Store user ID in environment variable
+    console.log("petID set for QA");
+} else {
+    console.log("Not in QA, petID not set.");
+}
+
+
+3. Global Variables (pm.globals)
+ Scope: Available everywhere in Postman (across all collections and environments).
+ Persistence: Saved globally and can be accessed in any request, collection, or environment.
+ Use Case: Useful for variables shared across multiple collections or temporary values.
+ 
+ pm.globals.set("auth_token", "xyz789");
+let authToken = pm.globals.get("auth_token");
+console.log("Auth Token:", authToken);
