@@ -1,0 +1,68 @@
+
+**What is Jira?**
+**Jira** is a project management tool made by Atlassian. It’s mainly used for **tracking issues, bugs, and tasks**, especially in software development. Think of it like a supercharged to-do list that helps teams stay organized.
+
+**Core Concepts**
+
+- **Projects**: The container for all your work. Each team or product can have its own project.
+- **Issues**: Everything in Jira is an *issue*. A task, a bug, a feature request—these are all called issues.
+- **Workflows**: The steps an issue goes through, like: *To Do → In Progress → Done*.
+- **Boards**: Visual displays (Kanban or Scrum-style) that show issues and their statuses.
+- **Sprints** (in Scrum): Time-boxed periods (usually 1-2 weeks) where a set of issues are worked on.
+- **Epics & Stories**:
+  - **Epic**: A big chunk of work.
+  - **Story**: A smaller task that’s part of an epic.
+
+---
+
+ **How Teams Use Jira**
+
+- **Agile development**: Perfect for Scrum or Kanban teams.
+- **Bug tracking**: Log, assign, and fix bugs.
+- **Project tracking**: Set deadlines, assign owners, and monitor progress.
+
+---
+ **Typical Workflow**
+1. Create a **project**.
+2. Add **issues** (like tasks or bugs).
+3. Prioritize and assign them.
+4. Track progress on a **board**.
+5. Move them through the workflow until done.
+
+---
+
+Quick Tips
+- Use **filters** to find what you need fast.
+- Use **labels** and **components** to organize issues.
+- **Dashboards** let you see stats, charts, and progress at a glance.
+- Keyboard shortcuts make things faster!
+
+---
+
+
+1. **Create a Test Case**
+   - Go to the **Tests** section.
+   - Create and define a **Test Case** with steps, expected results, etc.
+
+2. **Create a Test Plan** *(Optional but useful for grouping tests for a release or objective)*
+   - Helps organize multiple test cycles under one goal.
+   - Add the relevant **Test Cases** to the Test Plan.
+
+3. **Create a Test Cycle**
+   - Test Cycles are where execution happens.
+   - Inside a Test Plan (or stand-alone), create a **Test Cycle** (e.g., for a sprint, release, etc.).
+
+4. **Add Test Cases to the Test Cycle**
+   - Select and add test cases from your repository to the Test Cycle.
+
+5. **Execute the Test Cases**
+   - Go into the Test Cycle.
+   - For each test case, update the execution status: **Pass**, **Fail**, **Blocked**, etc.
+   - Optionally, attach evidence, raise bugs, add comments.
+
+---
+
+### Summary:
+**Test Case** → (optional) **Test Plan** → **Test Cycle** → **Add Test Cases** → **Execute**
+
+created >= -30d AND project = MMP AND type = Story AND status = Done ORDER BY created DESC
